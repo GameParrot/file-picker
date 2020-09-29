@@ -23,4 +23,8 @@ endif()
 
 add_library(filepicker ${FILEPICKER_SOURCES})
 target_include_directories(filepicker PUBLIC include/)
+if (TARGET gamewindow)
+    target_link_libraries(filepicker gamewindow)
+    set(FILEPICKER_DEFINES ${FILEPICKER_DEFINES} FILEPICKER_USE_GAMEWINDOW_CLASS)
+endif()
 target_compile_definitions(filepicker PRIVATE ${FILEPICKER_DEFINES})

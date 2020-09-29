@@ -1,4 +1,7 @@
 #include "file_picker_zenity.h"
+#ifdef FILEPICKER_USE_GAMEWINDOW_CLASS
+#include <game_window_manager.h>
+#endif
 
 #include <unistd.h>
 #include <sys/wait.h>
@@ -12,6 +15,13 @@ const std::string ZenityFilePicker::EXECUTABLE_PATH = "/usr/bin/zenity";
 std::vector<std::string> ZenityFilePicker::buildCommandLine() {
     std::vector<std::string> cmd;
     cmd.emplace_back(EXECUTABLE_PATH);
+#ifdef FILEPICKER_USE_GAMEWINDOW_CLASS
+    std::string classname = GameWindowManager::getManager()->getClassInstanceName();
+    if (!classname.empty()) {
+        cmd.emplace_back("--class");
+        cmd.emplace_back(classname);
+    }
+#endif
     cmd.emplace_back("--file-selection");
     if (!title.empty()) {
         cmd.emplace_back("--title");
