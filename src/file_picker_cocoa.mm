@@ -8,7 +8,7 @@ bool CocoaFilePicker::show() {
         panel = [NSOpenPanel openPanel];
     } else {
         panel = [NSSavePanel savePanel];
-        [panel setNameFieldStringValue:fileName.c_str()]
+        [panel setNameFieldStringValue:[NSString stringWithUTF8String: fileName.c_str()]];
     }
     panel.title = [NSString stringWithUTF8String: title.c_str()];
     NSMutableArray* types = [NSMutableArray array];
